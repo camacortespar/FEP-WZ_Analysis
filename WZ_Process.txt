@@ -1,0 +1,36 @@
+﻿Análisis WZ
+(8 TeV)
+
+En el estado final del proceso WZ se espera obtener
+
+*Tres leptones cargados
+*Ningún jet debido a que el proceso es realizado en el lep-channel
+*Un neutrino, correspondiente al MET
+
+Este proceso se distingue de otros los otros dos procesos dibosónicos de background: 
+*WW 
+*ZZ
+
+Se usan los datasets de acceso abierto disponibles en la página del ATLAS tomados en 2012
+que permiten reconstruir y redescubrir el proceso WZ
+
+TString path = "/home/atlas-open-data/8tev/";
+
+
+  TChain* chain_WW = new TChain("mini");
+  chain_WW->AddFile(path+"MC/mc_105985.WW.root");
+  chain_WW->Process("TopAnalysis.C+","WW");
+
+  TChain* chain_ZZ = new TChain("mini");
+  chain_ZZ->AddFile(path+"MC/mc_105986.ZZ.root");
+  chain_ZZ->Process("TopAnalysis.C+","ZZ");
+
+  TChain* chain_WZ = new TChain("mini");
+  chain_WZ->AddFile(path+"MC/mc_105987.WZ.root");
+  chain_WZ->Process("TopAnalysis.C+","WZ");
+  
+  TChain* chain_data = new TChain("mini");
+  chain_data->AddFile(path+"Data/DataEgamma.root");
+  chain_data->AddFile(path+"Data/DataMuons.root");
+  chain_data->Process("TopAnalysis.C+","data");
+
